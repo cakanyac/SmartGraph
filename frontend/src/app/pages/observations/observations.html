@@ -1,0 +1,98 @@
+<div class="observations-page">
+  <h2 class="page-title">GESTION DES OBSERVATIONS</h2>
+
+  <div class="observations-layout">
+    <aside class="observations-sidebar">
+      <div class="sidebar-header">
+        <h3>Sélectionner une observation</h3>
+        <button class="btn-add" (click)="openCreateForm()">+ Ajouter</button>
+      </div>
+
+      <div class="observations-list">
+        <div 
+          *ngFor="let observation of observations" 
+          class="observation-item"
+          [class.selected]="selectedObservation?.id === observation.id"
+          (click)="selectObservation(observation)">
+          <div class="observation-info">
+            <span class="observation-capteur">{{ observation.capteur_id }}</span>
+            <span class="observation-valeur">{{ observation.valeur }}</span>
+          </div>
+          <span class="badge" [class]="'badge-' + observation.qualite">{{ observation.qualite }}</span>
+        </div>
+
+        <p *ngIf="observations.length === 0" class="no-data">Aucune observation trouvée</p>
+      </div>
+    </aside>
+
+    <main class="observations-content">
+      <div *ngIf="showForm" class="form-card">
+        <h3>{{ isEditMode ? 'Modifier' : 'Ajouter' }} une observation</h3>
+        
+        <form (ngSubmit)="saveObservation()">
+          <div class="form-row">
+            <div class="form-group">
+              <label>ID Capteur</label>
+              <input type="text" [(ngModel)]="formData.capteur_id" name="capteur_id" required>
+            </div>
+            <div class="form-group">
+              <label>Valeur</label>
+              <input type="number" [(ngModel)]="formData.valeur" name="valeur" step="0.01" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Timestamp</label>
+              <input type="datetime-local" [(ngModel)]="formData.timestamp" name="timestamp" required>
+            </div>
+            <div class="form-group">
+              <label>Qualité</label>
+              <select [(ngModel)]="formData.qualite" name="qualite" required>
+                <option value="bonne">Bonne</option>
+                <option value="moyenne">Moyenne</option>
+                <option value="mauvaise">Mauvaise</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">{{ isEditMode ? 'Modifier' : 'Créer' }}</button>
+            <button type="button" class="btn-cancel" (click)="cancelForm()">Annuler</button>
+          </div>
+        </form>
+      </div>
+
+      <div *ngIf="selectedObservation && !showForm" class="detail-card">
+        <div class="detail-header">
+          <h3>Observation {{ selectedObservation.id }}</h3>
+          <div class="detail-actions">
+            <button class="btn-edit" (click)="openEditForm()">✏️ Modifier</button>
+            <button class="btn-delete" (click)="deleteObservation()">🗑️ Supprimer</button>
+          </div>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="label">CAPTEUR</span>
+            <h4>{{ selectedObservation.capteur_id }}</h4>
+          </div>
+          <div class="detail-item">
+            <span class="label">VALEUR</span>
+            <h4>{{ selectedObservation.valeur }}</h4>
+          </div>
+          <div class="detail-item">
+            <span class="label">QUALITÉ</span>
+            <span class="badge" [class]="'badge-' + selectedObservation.qualite">{{ selectedObservation.qualite }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">TIMESTAMP</span>
+            <h4>{{ selectedObservation.timestamp | date:'short' }}</h4>
+          </div>
+        </div>
+      </div>
+
+      <p *ngIf="!selectedObservation && !showForm" class="no-selection">Sélectionnez une observation pour voir les détails</p>
+    </main>
+  </div>
+</div>

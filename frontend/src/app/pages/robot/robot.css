@@ -1,0 +1,315 @@
+/* Robot Page Styles */
+
+:host {
+  display: block;
+}
+
+/* Header */
+h2 {
+  color: #2c3e50;
+  font-size: 28px;
+  margin-bottom: 25px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 3px solid #007bff;
+  padding-bottom: 10px;
+}
+
+/* Add Button */
+.add-robot-btn {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #2d6a4f 0%, #52b788 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  margin-bottom: 25px;
+  display: inline-block;
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.2);
+}
+
+.add-robot-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(45, 106, 79, 0.3);
+}
+
+/* Form Container */
+.form-container {
+  background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+  padding: 25px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
+}
+
+.form-container h3 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  color: #495057;
+  font-weight: 500;
+  margin-bottom: 8px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: white;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.form-buttons button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-buttons button:first-child {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+}
+
+.form-buttons button:first-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+}
+
+.form-buttons button:last-child {
+  background: #6c757d;
+  color: white;
+}
+
+.form-buttons button:last-child:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* Robots Grid */
+.robots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+/* Robot Card */
+.robot-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.robot-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #f39c12 0%, #e67e22 100%);
+}
+
+.robot-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  flex: 1;
+}
+
+.card-title h3 {
+  color: #2c3e50;
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-title small {
+  color: #7f8c8d;
+  font-size: 12px;
+  display: block;
+}
+
+/* Status Badge */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+}
+
+.status-actif {
+  background: linear-gradient(135deg, #2d6a4f 0%, #52b788 100%);
+}
+
+.status-en-mission {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+}
+
+.status-inactif {
+  background: linear-gradient(135deg, #d4a574 0%, #a97142 100%);
+}
+
+/* Threshold Display */
+.threshold-display {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 15px;
+  color: #495057;
+  font-size: 14px;
+}
+
+.threshold-display span:first-child {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.threshold-display strong {
+  color: #007bff;
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.action-buttons button {
+  flex: 1;
+  min-width: 70px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  white-space: nowrap;
+}
+
+.btn-activer {
+  background: linear-gradient(135deg, #2d6a4f 0%, #52b788 100%);
+}
+
+.btn-mission {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+}
+
+.btn-desactiver {
+  background: linear-gradient(135deg, #d4a574 0%, #a97142 100%);
+  color: white;
+}
+
+.btn-modifier {
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+}
+
+.btn-supprimer {
+  background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+}
+
+.action-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .robots-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .robots-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons button {
+    flex: 0 1 calc(50% - 4px);
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 22px;
+  }
+
+  .robot-card {
+    padding: 20px;
+  }
+
+  .action-buttons button {
+    flex: 1;
+    min-width: auto;
+  }
+}

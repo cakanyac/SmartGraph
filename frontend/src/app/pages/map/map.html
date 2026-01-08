@@ -1,0 +1,32 @@
+<div style="padding: 20px; display: flex; gap: 20px;">
+  <div style="flex: 1;">
+    <h2>Carte des parcelles</h2>
+    <div style="background: #e0e0e0; height: 400px; border-radius: 5px; display: flex; align-items: center; justify-content: center;">
+      <p style="color: #666;">Carte interactive (Leaflet/Mapbox à intégrer)</p>
+    </div>
+  </div>
+
+  <div style="width: 300px;">
+    <h3>Parcelles</h3>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div *ngFor="let parcelle of parcelles" 
+           (click)="selectParcelle(parcelle)"
+           [style.background]="selectedParcelle?.id === parcelle.id ? '#007bff' : '#f0f0f0'"
+           [style.color]="selectedParcelle?.id === parcelle.id ? 'white' : 'black'"
+           style="padding: 15px; border-radius: 5px; cursor: pointer; transition: all 0.3s;">
+        <strong>{{ parcelle.nom }}</strong>
+        <small>Superficie: {{ parcelle.superficie }} ha</small>
+        <small>Culture: {{ parcelle.culture }}</small>
+      </div>
+    </div>
+
+    <div *ngIf="selectedParcelle" style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px; border: 1px solid #ddd;">
+      <h4>Détails</h4>
+      <p><strong>{{ selectedParcelle.nom }}</strong></p>
+      <p>Superficie: {{ selectedParcelle.superficie }} ha</p>
+      <p>Culture: {{ selectedParcelle.culture }}</p>
+      <p>Type de sol: {{ selectedParcelle.type_sol }}</p>
+      <p>Lat: {{ selectedParcelle.latitude }}, Lon: {{ selectedParcelle.longitude }}</p>
+    </div>
+  </div>
+</div>

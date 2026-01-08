@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartGraph - Spécification Backend API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #007bff;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+        .date {
+            color: #999;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        h2 {
+            color: #007bff;
+            font-size: 24px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #0056b3;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .entity-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        .endpoint {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        .endpoint.get { border-left-color: #28a745; background: #d4edda; }
+        .endpoint.post { border-left-color: #007bff; background: #cfe2ff; }
+        .endpoint.put { border-left-color: #ffc107; background: #fff3cd; }
+        .endpoint.delete { border-left-color: #dc3545; background: #f8d7da; }
+        .section-title {
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 3px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        th {
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 3px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        .important {
+            background: #f8d7da;
+            border: 1px solid #dc3545;
+            border-radius: 3px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #721c24;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            border-radius: 3px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #155724;
+        }
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .field {
+            background: white;
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+        .field-name {
+            color: #007bff;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        .field-type {
+            color: #dc3545;
+            font-family: 'Courier New', monospace;
+            margin-left: 10px;
+        }
+        .field-desc {
+            color: #666;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        .page-break {
+            page-break-after: always;
+            margin-bottom: 40px;
+            border-bottom: 2px dashed #ccc;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <h1>🌾 SmartGraph</h1>
+            <p class="subtitle">Spécification de l'API Backend</p>
+            <p class="date">Document généré le 16 décembre 2025</p>
+        </header>
+
+        <!-- TABLE OF CONTENTS -->
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 40px;">
+            <h3>Table des matières</h3>
+            <ol>
+                <li>Vue d'ensemble du projet</li>
+                <li>Architecture et entités</li>
+                <li>Définition des entités</li>
+                <li>Endpoints API</li>
+                <li>Formats de réponse</li>
+                <li>Recommandations techniques</li>
+            </ol>
+        </div>
+
+        <!-- SECTION 1: OVERVIEW -->
+        <h2>1. Vue d'ensemble du projet</h2>
+        <p><strong>SmartGraph</strong> est une plateforme intelligente pour la gestion agricole. Elle permet de :</p>
+        <ul>
+            <li>📊 Monitorer les parcelles agricoles avec des capteurs IoT</li>
+            <li>🤖 Gérer des robots autonomes pour l'inspection et le traitement</li>
+            <li>🚨 Déclencher des alertes en cas d'anomalies</li>
+            <li>📍 Visualiser les parcelles sur une carte interactive</li>
+            <li>📈 Afficher des statistiques et métriques en temps réel</li>
+        </ul>
+
+        <p style="margin-top: 20px;"><strong>Stack technique :</strong></p>
+        <ul>
+            <li>Backend : Flask (Python) + Neo4j (base de données)</li>
+            <li>Frontend : Angular 18 (TypeScript, Standalone Components)</li>
+            <li>Communication : API REST (JSON)</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 2: ENTITIES -->
+        <h2>2. Définition des entités</h2>
+
+        <h3>📍 Parcelle (Champ agricole)</h3>
+        <p>Représente une zone agricole cultivée avec des capteurs de monitoring.</p>
+        <div class="entity-box">
+{
+  "id": number,              // Identifiant unique
+  "nom": string,             // Ex: "Parcelle A - Blé"
+  "surface": number,         // Superficie en hectares
+  "localisation": string,    // Région/adresse
+  "capteurs": number,        // Nombre de capteurs installés
+  "statut": "actif|inactif",
+  "createdAt": date,         // ISO 8601: 2025-12-16T10:30:00Z
+  "updatedAt": date
+}
+        </div>
+
+        <h3>🌡️ Capteur (Capteur IoT)</h3>
+        <p>Appareil de mesure installé sur une parcelle pour collecter des données (température, humidité, etc.)</p>
+        <div class="entity-box">
+{
+  "id": number,
+  "nom": string,                    // Ex: "Capteur Humidité 1"
+  "type": "Humidité|Température|Luminosité|pH|Nitrogène",
+  "parcelleId": number,             // Référence vers la parcelle
+  "valeur": number,                 // Dernière lecture
+  "unite": string,                  // "%", "°C", "lux", "pH", "mg/L"
+  "lastUpdate": date,               // Dernière mise à jour
+  "statut": "actif|dysfonctionné"
+}
+        </div>
+
+        <h3>🤖 Robot (Robot autonome)</h3>
+        <p>Engin autonome pour inspection ou traitement des parcelles.</p>
+        <div class="entity-box">
+{
+  "id": number,
+  "nom": string,                    // Ex: "Robot Scout 1"
+  "statut": "actif|inactif|en_mission",
+  "batterie": number,               // 0-100 (%)
+  "localisation": string,           // Parcelle actuelle ou "Base"
+  "missionActuelle": number|null,   // ID de mission en cours
+  "createdAt": date
+}
+        </div>
+
+        <h3>📋 Mission (Tâche robot)</h3>
+        <p>Mission assignée à un robot (inspection, traitement, récolte).</p>
+        <div class="entity-box">
+{
+  "id": number,
+  "robotId": number,                // Référence au robot
+  "parcelleId": number,             // Référence à la parcelle cible
+  "type": "inspection|traitement|récolte",
+  "statut": "planifiée|en_cours|complétée|annulée",
+  "dateDebut": date,
+  "dateFin": date|null,
+  "description": string             // Ex: "Inspecter santé des plants"
+}
+        </div>
+
+        <h3>⚠️ Alerte (Notification système)</h3>
+        <p>Notification déclenchée pour un événement important (capteur en panne, batterie faible, etc.)</p>
+        <div class="entity-box">
+{
+  "id": number,
+  "type": "capteur|robot|système",
+  "severite": "info|warning|critical",
+  "message": string,                // Description lisible
+  "source": string,                 // ID du capteur/robot concerné
+  "statut": "non_lue|lue|résolue",
+  "createdAt": date
+}
+        </div>
+
+        <h3>📊 Dashboard Stats (Statistiques)</h3>
+        <p>Données agrégées pour le tableau de bord principal.</p>
+        <div class="entity-box">
+{
+  "parcelles": number,              // Nombre total de parcelles
+  "capteurs": number,               // Nombre total de capteurs
+  "robots": number,                 // Nombre total de robots
+  "alertes": number,                // Nombre d'alertes actives
+  "missionsEnCours": number,        // Missions en cours
+  "capteursDysfonctionne": number   // Capteurs défaillants
+}
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 3: ENDPOINTS -->
+        <h2>3. Endpoints API</h2>
+
+        <h3>🌾 PARCELLES</h3>
+        <div class="endpoint get">GET /api/parcelles</div>
+        <p style="margin-bottom: 15px;">Liste toutes les parcelles</p>
+
+        <div class="endpoint get">GET /api/parcelles/:id</div>
+        <p style="margin-bottom: 15px;">Récupère une parcelle spécifique</p>
+
+        <div class="endpoint post">POST /api/parcelles</div>
+        <p style="margin-bottom: 15px;">Crée une nouvelle parcelle</p>
+        <p style="font-size: 13px; margin-bottom: 15px;"><strong>Body attendu :</strong> { nom, surface, localisation }</p>
+
+        <div class="endpoint put">PUT /api/parcelles/:id</div>
+        <p style="margin-bottom: 15px;">Modifie une parcelle</p>
+
+        <div class="endpoint delete">DELETE /api/parcelles/:id</div>
+        <p style="margin-bottom: 15px;">Supprime une parcelle</p>
+
+        <div class="endpoint get">GET /api/parcelles/:id/capteurs</div>
+        <p style="margin-bottom: 25px;">Liste les capteurs d'une parcelle</p>
+
+        <h3>🌡️ CAPTEURS</h3>
+        <div class="endpoint get">GET /api/capteurs</div>
+        <p style="margin-bottom: 15px;">Liste tous les capteurs</p>
+
+        <div class="endpoint get">GET /api/capteurs/:id</div>
+        <p style="margin-bottom: 15px;">Récupère un capteur spécifique</p>
+
+        <div class="endpoint post">POST /api/capteurs</div>
+        <p style="margin-bottom: 15px;">Crée un nouveau capteur</p>
+        <p style="font-size: 13px; margin-bottom: 15px;"><strong>Body attendu :</strong> { nom, type, parcelleId, unite }</p>
+
+        <div class="endpoint put">PUT /api/capteurs/:id</div>
+        <p style="margin-bottom: 15px;">Modifie un capteur (mettre à jour valeur, statut)</p>
+
+        <div class="endpoint delete">DELETE /api/capteurs/:id</div>
+        <p style="margin-bottom: 25px;">Supprime un capteur</p>
+
+        <h3>🤖 ROBOTS</h3>
+        <div class="endpoint get">GET /api/robots</div>
+        <p style="margin-bottom: 15px;">Liste tous les robots</p>
+
+        <div class="endpoint get">GET /api/robots/:id</div>
+        <p style="margin-bottom: 15px;">Récupère un robot spécifique</p>
+
+        <div class="endpoint post">POST /api/robots</div>
+        <p style="margin-bottom: 15px;">Crée un nouveau robot</p>
+
+        <div class="endpoint put">PUT /api/robots/:id</div>
+        <p style="margin-bottom: 15px;">Modifie un robot</p>
+
+        <div class="endpoint put">PUT /api/robots/:id/statut</div>
+        <p style="margin-bottom: 15px;">Met à jour le statut et batterie d'un robot</p>
+        <p style="font-size: 13px; margin-bottom: 25px;"><strong>Body attendu :</strong> { statut, batterie, localisation }</p>
+
+        <h3>📋 MISSIONS</h3>
+        <div class="endpoint get">GET /api/missions</div>
+        <p style="margin-bottom: 15px;">Liste les missions</p>
+
+        <div class="endpoint post">POST /api/missions</div>
+        <p style="margin-bottom: 15px;">Crée une mission</p>
+        <p style="font-size: 13px; margin-bottom: 15px;"><strong>Body :</strong> { robotId, parcelleId, type, description }</p>
+
+        <div class="endpoint put">PUT /api/missions/:id/start</div>
+        <p style="margin-bottom: 15px;">Démarre une mission</p>
+
+        <div class="endpoint put">PUT /api/missions/:id/complete</div>
+        <p style="margin-bottom: 25px;">Marque une mission comme complétée</p>
+
+        <h3>⚠️ ALERTES</h3>
+        <div class="endpoint get">GET /api/alertes</div>
+        <p style="margin-bottom: 15px;">Liste les alertes (non lues et actives)</p>
+
+        <div class="endpoint post">POST /api/alertes</div>
+        <p style="margin-bottom: 15px;">Crée une alerte (générée par le backend)</p>
+
+        <div class="endpoint put">PUT /api/alertes/:id/marquer-lue</div>
+        <p style="margin-bottom: 25px;">Marque une alerte comme lue</p>
+
+        <h3>📊 DASHBOARD</h3>
+        <div class="endpoint get">GET /api/dashboard/stats</div>
+        <p style="margin-bottom: 25px;">Retourne les statistiques globales</p>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 4: RESPONSES -->
+        <h2>4. Formats de réponse</h2>
+
+        <h3>✅ Réponse successful (200, 201)</h3>
+        <div class="entity-box">
+{
+  "success": true,
+  "data": { /* entity data */ },
+  "message": "Opération réussie"
+}
+        </div>
+
+        <h3>❌ Réponse erreur (400, 404, 500)</h3>
+        <div class="entity-box">
+{
+  "success": false,
+  "error": "Description détaillée de l'erreur",
+  "code": "ERROR_CODE"
+}
+        </div>
+
+        <h3>📋 Réponse liste (avec pagination optionnelle)</h3>
+        <div class="entity-box">
+{
+  "success": true,
+  "data": [ /* array d'entités */ ],
+  "total": 42,
+  "page": 1,
+  "limit": 20
+}
+        </div>
+
+        <div class="note">
+            <strong>📌 Note :</strong> Les dates doivent être en format ISO 8601 (ex: 2025-12-16T10:30:00Z)
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 5: RECOMMENDATIONS -->
+        <h2>5. Recommandations techniques</h2>
+
+        <h3>✅ Checklist de validation</h3>
+        <div style="background: #d4edda; border: 1px solid #28a745; border-radius: 5px; padding: 20px; margin-bottom: 20px;">
+            <ul style="list-style: none; margin-left: 0;">
+                <li>☑️ Respecter exactement les noms de champs TypeScript (Parcelle, Capteur, Robot, etc.)</li>
+                <li>☑️ Valider les entrées (surface > 0, batterie 0-100, types énumérés)</li>
+                <li>☑️ Retourner les codes HTTP corrects (200, 201, 400, 404, 500)</li>
+                <li>☑️ Activer CORS pour localhost:4200 (développement)</li>
+                <li>☑️ Implémenter les relations Neo4j (Parcelle → Capteurs, Robot → Missions)</li>
+                <li>☑️ Ajouter timestamps (createdAt, updatedAt, lastUpdate)</li>
+                <li>☑️ Implémenter la pagination pour les listes (optionnel mais recommandé)</li>
+            </ul>
+        </div>
+
+        <h3>🔄 Intégration avec Neo4j</h3>
+        <p><strong>Relations à créer :</strong></p>
+        <ul>
+            <li><code>Parcelle --[HAS_CAPTEUR]--> Capteur</code></li>
+            <li><code>Robot --[HAS_MISSION]--> Mission</code></li>
+            <li><code>Mission --[TARGET]--> Parcelle</code></li>
+            <li><code>Alerte --[CONCERNS]--> (Capteur|Robot)</code></li>
+        </ul>
+
+        <h3>🔐 Sécurité (future)</h3>
+        <ul>
+            <li>Ajouter authentification (JWT ou similaire)</li>
+            <li>Implémenter autorisation (rôles: admin, operateur, lecteur)</li>
+            <li>Valider toutes les entrées contre injection SQL/NoSQL</li>
+            <li>Rate limiting sur les endpoints</li>
+        </ul>
+
+        <h3>📊 Optimisations recommandées</h3>
+        <ul>
+            <li>Ajouter un système de cache pour /api/dashboard/stats (données interrogées souvent)</li>
+            <li>Implémenter WebSockets pour les updates temps réel (optionnel, phase 2)</li>
+            <li>Logger les opérations pour audit trail</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 6: NEXT STEPS -->
+        <h2>6. Prochaines étapes</h2>
+
+        <div class="important">
+            <strong>⚠️ Important :</strong> Le frontend attend strictement ces interfaces TypeScript. Toute déviation cassera l'application.
+        </div>
+
+        <h3>Pour Maël (Backend):</h3>
+        <ol>
+            <li>Valider cette spec avec Clément</li>
+            <li>Implémenter les endpoints selon l'ordre de priorité</li>
+            <li>Tester chaque endpoint avec Postman/curl</li>
+            <li>Envoyer les URLs d'API quand prêt (ex: http://localhost:5000/api/...)</li>
+            <li>Fournir la documentation OpenAPI/Swagger (optionnel mais utile)</li>
+        </ol>
+
+        <h3>Pour Clément (Frontend):</h3>
+        <ol>
+            <li>Polisher le design avec CSS/animations</li>
+            <li>Ajouter réactivité (responsive design)</li>
+            <li>Intégrer une carte (Leaflet/Mapbox)</li>
+            <li>Quand API prête → remplacer DataService.mock par appels HTTP</li>
+            <li>Ajouter authentification</li>
+            <li>Tester et déployer</li>
+        </ol>
+
+        <!-- FOOTER -->
+        <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #ddd; text-align: center; color: #999;">
+            <p>Document généré pour SmartGraph | v1.0 | 16 décembre 2025</p>
+            <p style="font-size: 12px;">Pour questions ou modifications, contactez l'équipe de développement.</p>
+        </div>
+
+    </div>
+</body>
+</html>

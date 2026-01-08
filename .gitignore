@@ -1,0 +1,15 @@
+# --- Backend (Quarkus/Maven) ---
+backend/target/
+backend/.quarkus/
+backend/.env
+
+# --- Frontend (Angular) ---
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# --- IDEs & System ---
+.idea/
+.vscode/
+.DS_Store
+*.swp
