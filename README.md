@@ -103,8 +103,8 @@ Contributions
 
 Les contributions sont les bienvenues. Pour contribuer, vous pouvez :
 
-Forker le repository.
-
-Créer une nouvelle branche.
-
-Soumettre une pull request.
+          Forker le repository.
+          
+          Créer une nouvelle branche.
+          
+          Soumettre une pull request.
