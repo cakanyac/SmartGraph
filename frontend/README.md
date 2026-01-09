@@ -1,59 +1,54 @@
-# SmartgraphFrontend
+SmartGraphFrontend - Description et Guide d'Utilisation
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
+Ce projet fait partie du projet SmartGraph et utilise Angular, un framework JavaScript pour la construction d'applications web modernes et dynamiques. Développé avec Angular CLI (version 21.0.2), ce projet permet de gérer les fonctionnalités front-end du projet SmartGraph, en facilitant la création de composants, la gestion du serveur de développement et les tests.
 
-## Development server
+Serveur de développement
 
-To start a local development server, run:
+Pour démarrer le serveur local de développement, exécute cette commande :
 
-```bash
-ng serve
-```
+ng serve  
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+Une fois le serveur lancé, ouvre ton navigateur et va à l'adresse suivante :
+http://localhost:4200/
+L'application se recharge automatiquement chaque fois que tu modifies un fichier source.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Génération de code
 
-```bash
-ng generate component component-name
-```
+Angular CLI inclut des outils puissants pour la génération automatique de code. Par exemple, pour générer un nouveau composant, utilise la commande :
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+ng generate component component-name  
 
-```bash
-ng generate --help
-```
 
-## Building
+Pour obtenir une liste complète des schémas disponibles (comme composants, directives ou pipes), utilise cette commande :
 
-To build the project run:
+ng generate --help  
 
-```bash
-ng build
-```
+Compilation du projet
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Pour compiler ton projet et obtenir le résultat final, utilise la commande suivante :
 
-## Running unit tests
+ng build  
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
 
-```bash
-ng test
-```
+Cela génère les artefacts du build dans le répertoire dist/. Par défaut, la compilation en mode production optimise l'application pour la performance et la vitesse.
 
-## Running end-to-end tests
+Exécution des tests unitaires
 
-For end-to-end (e2e) testing, run:
+Pour exécuter les tests unitaires avec Vitest (le test runner par défaut dans ce projet), utilise cette commande :
 
-```bash
-ng e2e
-```
+ng test  
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Exécution des tests de bout en bout (e2e)
 
-## Additional Resources
+Pour effectuer des tests de bout en bout, utilise la commande suivante :
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+ng e2e  
+
+
+Angular CLI ne propose pas de framework de test end-to-end par défaut, tu peux donc choisir celui qui correspond à tes besoins.
+
+Ressources supplémentaires
+
+Pour plus d'informations sur l'utilisation de Angular CLI, y compris une référence détaillée des commandes, consulte la page suivante :
+Angular CLI Overview and Command Reference.

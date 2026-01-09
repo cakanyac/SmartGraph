@@ -1,67 +1,70 @@
-# smartgraph-backend
+SmartGraph-Backend - Description et Guide d'Utilisation
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Ce projet fait partie du projet SmartGraph et utilise Quarkus, un framework Java ultra-rapide, conçu pour les applications microservices et les environnements Cloud natifs. Si tu souhaites en savoir plus sur Quarkus, tu peux visiter son site officiel : https://quarkus.io/
+.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+Exécution de l'application en mode développement
 
-## Running the application in dev mode
+Dans le cadre du projet SmartGraph, tu peux lancer l’application en mode développement, ce qui permet de faire du live coding. Pour cela, utilise la commande suivante dans ton terminal :
 
-You can run your application in dev mode that enables live coding using:
-
-```shell script
 ./mvnw quarkus:dev
-```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
 
-## Packaging and running the application
+Remarque: Quarkus propose une interface de développement accessible uniquement en mode dev à l’adresse http://localhost:8080/q/dev/
+.
 
-The application can be packaged using:
+Emballage et exécution de l’application
 
-```shell script
+L’application peut être emballée (packagée) en utilisant la commande suivante :
+
 ./mvnw package
-```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+Cela génère un fichier quarkus-run.jar dans le répertoire target/quarkus-app/. Note que ce fichier n'est pas un "uber-jar" : les dépendances sont placées dans un dossier séparé, target/quarkus-app/lib/. Une fois l’application packagée, tu peux l’exécuter avec la commande suivante :
 
-If you want to build an _über-jar_, execute the following command:
+java -jar target/quarkus-app/quarkus-run.jar
 
-```shell script
+
+Si tu veux créer un uber-jar (un fichier JAR autonome avec toutes les dépendances intégrées), utilise cette commande :
+
 ./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
 
-## Creating a native executable
+Le fichier uber-jar généré peut ensuite être lancé avec :
 
-You can create a native executable using:
+java -jar target/*-runner.jar
 
-```shell script
+
+Création d’un exécutable natif
+
+Pour SmartGraph, tu peux créer un exécutable natif en utilisant la commande suivante :
+
 ./mvnw package -Dnative
-```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
 
-```shell script
+Si tu n’as pas GraalVM installé, tu peux utiliser un conteneur Docker pour créer l’exécutable natif avec cette commande :
+
 ./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
 
-You can then execute your native executable with: `./target/smartgraph-backend-1.0.0-SNAPSHOT-runner`
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+Une fois l'exécutable natif créé, tu peux le lancer avec la commande suivante :
 
-## Related Guides
+./target/smartgraph-backend-1.0.0-SNAPSHOT-runner
 
-- Neo4j client ([guide](https://quarkiverse.github.io/quarkiverse-docs/quarkus-neo4j/dev/index.html)): Connect to Neo4j graph datastore
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
 
-## Provided Code
+Pour plus d’informations sur la création d’exécutables natifs, consulte ce guide : https://quarkus.io/guides/maven-tooling
+.
 
-### REST
+Guides associés
 
-Easily start your REST Web Services
+Client Neo4j (guide
+) : Connecter l’application SmartGraph à une base de données graphique Neo4j.
 
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+REST Jackson (guide
+) : Prise en charge de la sérialisation JSON avec Jackson pour les services REST de Quarkus. Cette extension n’est pas compatible avec l’extension quarkus-resteasy ou les extensions qui en dépendent.
+
+Code fourni
+
+Services REST
+
+L’application SmartGraph inclut des services REST pour simplifier la création d’API Web. Pour démarrer facilement avec ces services, consulte la section dédiée du guide Quarkus sur le JAX-RS réactif : Getting started with Reactive JAX-RS.
